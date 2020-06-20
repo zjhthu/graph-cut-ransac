@@ -229,8 +229,11 @@ namespace gcransac
 			points_ = cv::Mat(static_cast<int>(correspondences.size()), 4, CV_64F);
 			double *points_ptr = reinterpret_cast<double*>(points_.data);
 
-			for (auto[distance_ratio, point_1, point_2] : correspondences)
+			for (auto corr : correspondences)
 			{
+                auto distance_ratio = std::get<0>(corr);
+                auto point_1 = std::get<1>(corr);
+                auto point_2 = std::get<2>(corr);
 				*(points_ptr++) = point_1.x;
 				*(points_ptr++) = point_1.y;
 				*(points_ptr++) = point_2.x;
